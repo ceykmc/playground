@@ -60,6 +60,14 @@ void softmax(std::vector<float>& values)
     }
 }
 
+std::wstring to_wstring(std::string const& str)
+{
+    size_t len = mbstowcs(nullptr, &str[0], 0);
+    std::wstring wstr(len, 0);
+    mbstowcs(&wstr[0], &str[0], wstr.size());
+    return wstr;
+}
+
 int main(int argc, char** argv)
 {
     if (argc < 2) {
@@ -89,7 +97,12 @@ int main(int argc, char** argv)
             session_options, device_id));
     }
 
-    Ort::Session session(env, p_str_onnx_path, session_options);
+    #ifdef WIN32
+        std::wstring wstr_onnx_path = to_wstring(std::string(p_str_onnx_path));
+        Ort::Session session(env, wstr_onnx_path.c_str(), session_options);
+    #else
+        Ort::Session session(env, p_str_onnx_path, session_options);
+    #endif
 
     std::vector<int64_t> input_node_dims = {1, 3, 224, 224};
     constexpr size_t input_tensor_size = 224 * 224 * 3;

@@ -1,5 +1,11 @@
 cmake_minimum_required(VERSION 3.0.0)
 
+if(WIN32)
+    add_compile_options(/wd4244)
+    add_compile_options(/wd4267)
+    add_compile_options(/D_CRT_SECURE_NO_WARNINGS)
+endif()
+
 project(playground VERSION 0.1.0)
 
 find_package(OpenCV REQUIRED)
