@@ -1,0 +1,6 @@
+{
+    "cmake.configureArgs": [
+        "-DOpenCV_DIR=E:\\workspace\\cpp_projects\\cpp_libs\\opencv\\build\\x64\\vc15\\lib",
+        "-DONNXRUNTIME_DIR=E:\\workspace\\cpp_projects\\cpp_libs\\onnxruntime\\onnxruntime-win-x64-tensorrt-1.13.1"
+    ]
+}
